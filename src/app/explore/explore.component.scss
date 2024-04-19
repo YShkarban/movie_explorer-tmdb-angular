@@ -1,82 +1,84 @@
 .movie-card {
-    width: 350px;
+  width: 350px;
 }
 
-
 .movie-poster-size {
-    height: 220px;
-    width: 150px;
+  height: 220px;
+  width: 150px;
 }
 
 .movie-poster {
-    text-align: center;
-    margin-top: 15px;
+  text-align: center;
+  margin-top: 15px;
 }
-
-
-
-
-
-
 
 // .row {
 //     display: flex;
 //     flex-direction: column;
 //     margin-bottom: 20px;
 //   }
-  
-  .scrollable-row {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth; /* Optional for smooth scrolling */
-    padding-left: 0px;
-    margin-bottom: 20px;
-  }
-  
-  .mat-card {
-    flex: 0 0 auto;
-    margin-right: 10px; /* Adjust margin as needed */
-  }
-  
-  .slider {
-    width: 100%;
-  }
 
-
-  //pretify scrollbar
-  ::-webkit-scrollbar {
-    height: 8px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #eee;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #55aa55;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #88dd88;
-  }
-  
-
-  .truncate-text {
-    overflow: hidden;
-    //set up lines to show
-    display: -webkit-box;
-    -webkit-line-clamp: 5; /* Number of lines to show */
-    -webkit-box-orient: vertical;
-    //text in one line to the end
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
-    // /* Adjust max-width as per your preference */
-    // max-width: 100%;
+.scrollable-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth; /* Optional for smooth scrolling */
+  padding-left: 0px;
+  margin-bottom: 20px;
 }
 
+.mat-card {
+  flex: 0 0 auto;
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.slider {
+  width: 100%;
+}
+
+//pretify scrollbar
+::-webkit-scrollbar {
+  height: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #55aa55;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #88dd88;
+}
+
+.truncate-text {
+  overflow: hidden;
+  //set up lines to show
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  //text in one line to the end
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
+  // /* Adjust max-width as per your preference */
+  // max-width: 100%;
+}
 
 .card-actions {
   margin-top: auto; /* Pushes the actions to the bottom */
+}
+
+.movie-save {
+  position: absolute;
+  align-self: flex-end;
+}
+
+.card-info {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

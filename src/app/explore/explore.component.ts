@@ -14,6 +14,8 @@ import { IMovie } from '../../interfaces/movie';
 import { IDiscoverPageContent } from '../../interfaces/responce';
 import { ITvSeries } from '../../interfaces/tvseries';
 import { debounceTime, distinctUntilChanged, lastValueFrom, tap } from 'rxjs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-explore',
@@ -31,9 +33,11 @@ import { debounceTime, distinctUntilChanged, lastValueFrom, tap } from 'rxjs';
     MatSliderModule,
     RouterLink,
     RouterLinkActive,
+    MatToolbarModule,
+    MatMenuModule, 
   ],
   templateUrl: './explore.component.html',
-  styleUrl: './explore.component.scss'
+  styleUrl: './explore.component.scss',
 })
 export class ExploreComponent implements OnInit {
   categories: Categories[] = [
@@ -42,7 +46,6 @@ export class ExploreComponent implements OnInit {
   ];
   selectedCategorie = this.categories[0].value;
 
-  title = 'TMDB-MovieList-Angular';
   private tmdbService = inject(TmdbService);
   hotMovies!: IDiscoverPageContent<IMovie>;
   hotTvs!: IDiscoverPageContent<ITvSeries>;
@@ -101,5 +104,4 @@ export class ExploreComponent implements OnInit {
       return text.substring(0, maxLength) + '...';
     }
   }
-
 }

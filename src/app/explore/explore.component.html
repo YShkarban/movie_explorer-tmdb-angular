@@ -1,28 +1,27 @@
-<div class="container-fluid">
-  <div style="display: flex">
-    <mat-form-field>
-      <mat-select [(value)]="selectedCategorie">
-        @for (option of categories; track option) {
-        <mat-option [value]="option.value">{{ option.name }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="example-form-field" style="width: 100%">
-      <mat-label>Search</mat-label>
-      <input matInput type="text" [formControl]="searchName" />
-      @if (searchName.value) {
-      <button
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="searchName.reset()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
+<mat-toolbar color="primary" style="justify-content: center">
+  <mat-form-field style="max-width: 150px; padding-top: 20px">
+    <mat-select [(value)]="selectedCategorie">
+      @for (option of categories; track option) {
+      <mat-option [value]="option.value">{{ option.name }}</mat-option>
       }
-    </mat-form-field>
-  </div>
-
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 500px; padding-top: 20px; margin-left: 5px">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [formControl]="searchName" />
+    @if (searchName.value) {
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchName.reset()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    }
+  </mat-form-field>
+</mat-toolbar>
+<div class="container-fluid">
   <div class="mb-5">
     @if(!findMovies){
     <div class="row m-2">
@@ -30,14 +29,25 @@
       <div class="scrollable-row">
         @for (item of hotMovies.results; track $index) {
         <mat-card class="movie-card m-2">
-          <div
-            style="
-              width: 250px;
-              display: flex;
-              flex-direction: column;
-              height: 100%;
-            "
-          >
+          <div class="card-info">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Check movie"
+              class="movie-save"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>watch_later</mat-icon>
+                <span>Want</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>done</mat-icon>
+                <span>Watched</span>
+              </button>
+            </mat-menu>
             <div class="movie-poster">
               <img
                 class="card-img-top movie-poster-size"
@@ -61,7 +71,7 @@
             <mat-card-actions
               class="card-actions"
               align="end"
-              routerLink="/details/movie/{{item.id}}"
+              routerLink="/details/movie/{{ item.id }}"
               routerLinkActive="active"
             >
               <button mat-flat-button>Details</button>
@@ -77,14 +87,25 @@
       <div class="scrollable-row">
         @for (item of hotTvs.results; track $index) {
         <mat-card class="movie-card m-2">
-          <div
-            style="
-              width: 250px;
-              display: flex;
-              flex-direction: column;
-              height: 100%;
-            "
-          >
+          <div class="card-info">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Check movie"
+              class="movie-save"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>watch_later</mat-icon>
+                <span>Want</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>done</mat-icon>
+                <span>Watched</span>
+              </button>
+            </mat-menu>
             <div class="movie-poster">
               <img
                 class="card-img-top movie-poster-size"
@@ -109,7 +130,7 @@
             <mat-card-actions
               class="card-actions"
               align="end"
-              routerLink="/details/tv/{{item.id}}"
+              routerLink="/details/tv/{{ item.id }}"
               routerLinkActive="active"
             >
               <button mat-flat-button>Details</button>
