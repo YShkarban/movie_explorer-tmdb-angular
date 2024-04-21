@@ -15,7 +15,18 @@ import { IDiscoverPageContent } from '../../interfaces/responce';
 import { ITvSeries } from '../../interfaces/tvseries';
 import { debounceTime, distinctUntilChanged, lastValueFrom, tap } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
+import { MyListItem } from '../../interfaces/list-item';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-explore',
@@ -34,12 +45,16 @@ import {MatMenuModule} from '@angular/material/menu';
     RouterLink,
     RouterLinkActive,
     MatToolbarModule,
-    MatMenuModule, 
+    MatMenuModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
 })
 export class ExploreComponent implements OnInit {
+  private snackbar = inject(MatSnackBar);
+  private db = inject(AngularFirestore);
+
   categories: Categories[] = [
     { value: 1, name: 'Movie' },
     { value: 2, name: 'TV' },
@@ -54,7 +69,12 @@ export class ExploreComponent implements OnInit {
   type: number = 1;
   findMovies: boolean = false;
 
+  pending: boolean = false;
+
+  constructor() {}
+
   async ngOnInit() {
+    this.pending = true;
     this.hotMovies = await lastValueFrom(this.tmdbService.discoverMovie(null));
     this.hotTvs = await lastValueFrom(this.tmdbService.discoverTv(null));
     this.searchName.valueChanges
@@ -90,7 +110,11 @@ export class ExploreComponent implements OnInit {
 
           this.findMovies = false;
         }
+
+        this.pending = false;
       });
+
+    this.pending = false;
   }
 
   typeChoose(choice: number) {
@@ -103,5 +127,29 @@ export class ExploreComponent implements OnInit {
     } else {
       return text.substring(0, maxLength) + '...';
     }
+  }
+
+  wantItem(event: any) {
+    let inputTask: MyListItem = {
+      title: event.title,
+      overview: event.overview,
+      poster_path: event.poster_path,
+      favorites: false,
+    };
+
+    this.db.collection('want').add(inputTask);
+    this.snackbar.open('Movie added to Want list', 'OK');
+  }
+
+  watchedItem(event: any) {
+    let inputTask: MyListItem = {
+      title: event.title,
+      overview: event.overview,
+      poster_path: event.poster_path,
+      favorites: false,
+    };
+
+    this.db.collection('watched').add(inputTask);
+    this.snackbar.open('Movie added to Watched list', 'OK');
   }
 }

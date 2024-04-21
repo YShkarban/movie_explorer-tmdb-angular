@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'TMDB-MovieList-Angular' title`, () => {
+  it(`should have the 'movie-explorer-tmdb-angular' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('TMDB-MovieList-Angular');
+    expect(app.title).toEqual('movie-explorer-tmdb-angular');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, TMDB-MovieList-Angular');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, movie-explorer-tmdb-angular');
   });
 });

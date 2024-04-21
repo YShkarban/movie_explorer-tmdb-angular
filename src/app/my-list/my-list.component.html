@@ -1,0 +1,179 @@
+<mat-toolbar color="primary" style="justify-content: center">
+  <button mat-raised-button routerLink="/explore" routerLinkActive="active">
+    Back
+  </button>
+  <mat-form-field style="max-width: 150px; padding-top: 20px">
+    <mat-select [(value)]="selectedCategorie">
+      @for (option of categories; track option) {
+      <mat-option [value]="option.value">{{ option.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 500px; padding-top: 20px; margin-left: 5px">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [formControl]="searchName" />
+    @if (searchName.value) {
+    <button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchName.reset()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    }
+  </mat-form-field>
+  <div>
+    <button mat-raised-button (click)="swapList()">{{ list }} list</button>
+  </div>
+</mat-toolbar>
+<div class="container-fluid">
+  <div class="mb-5">
+    <div class="row justify-content-center mw-100">
+      @if(swapedState) { @for (item of want | async; track $index) {
+      <mat-card class="movie-card m-2">
+        <div class="card-info">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Check movie"
+            class="movie-save"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            aria-label="Check movie"
+            class="movie-favorite"
+            (click)="addFavorites(item)"
+          >
+            @if(item.favorites) {
+            <mat-icon>star</mat-icon>
+            }@else {
+            <mat-icon>star_outline</mat-icon>
+            }
+          </button>
+          <mat-menu #menu="matMenu">
+            @if(!swapedState) {
+            <button mat-menu-item (click)="wantItem(item)">
+              <mat-icon>watch_later</mat-icon>
+              <span>Want</span>
+            </button>
+
+            } @if(swapedState) {
+            <button mat-menu-item (click)="watchedItem(item)">
+              <mat-icon>done</mat-icon>
+              <span>Watched</span>
+            </button>
+            }
+
+            <button mat-menu-item (click)="removeItem(item)">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+          <div class="movie-poster">
+            <img
+              class="card-img-top movie-poster-size"
+              mat-card-image
+              src="https://image.tmdb.org/t/p/w220_and_h330_face/{{
+                item.poster_path
+              }}"
+              alt="{{ item.title }}"
+              onerror="this.src='../assets/img/placeholder.jpg' "
+            />
+          </div>
+
+          <mat-card-content>
+            <mat-card-title class="justify-content-center">{{
+              item.title
+            }}</mat-card-title>
+            <mat-card-subtitle class="truncate-text">{{
+              item.overview
+            }}</mat-card-subtitle>
+          </mat-card-content>
+
+          <mat-card-actions
+            class="card-actions"
+            align="end"
+            routerLink="/details/tv/{{ item.id }}"
+            routerLinkActive="active"
+          >
+            <button mat-flat-button>Details</button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+      } } @else { @for (item of watched | async; track $index) {
+      <mat-card class="movie-card m-2">
+        <div class="card-info">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Check movie"
+            class="movie-save"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Check movie"
+            class="movie-favorite"
+            (click)="addFavorites(item)"
+          >
+            @if(item.favorites) {
+            <mat-icon>star</mat-icon>
+            }@else {
+            <mat-icon>star_outline</mat-icon>
+            }
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="wantItem(item)">
+              <mat-icon>watch_later</mat-icon>
+              <span>Want</span>
+            </button>
+            <button mat-menu-item (click)="watchedItem(item)">
+              <mat-icon>done</mat-icon>
+              <span>Watched</span>
+            </button>
+
+            <button mat-menu-item (click)="removeItem(item)">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+          <div class="movie-poster">
+            <img
+              class="card-img-top movie-poster-size"
+              mat-card-image
+              src="https://image.tmdb.org/t/p/w220_and_h330_face/{{
+                item.poster_path
+              }}"
+              alt="{{ item.title }}"
+              onerror="this.src='../assets/img/placeholder.jpg' "
+            />
+          </div>
+
+          <mat-card-content>
+            <mat-card-title class="justify-content-center">{{
+              item.title
+            }}</mat-card-title>
+            <mat-card-subtitle class="truncate-text">{{
+              item.overview
+            }}</mat-card-subtitle>
+          </mat-card-content>
+
+          <mat-card-actions
+            class="card-actions"
+            align="end"
+            routerLink="/details/tv/{{ item.id }}"
+            routerLinkActive="active"
+          >
+            <button mat-flat-button>Details</button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+      } }
+    </div>
+  </div>
+</div>

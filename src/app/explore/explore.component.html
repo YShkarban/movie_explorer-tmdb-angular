@@ -20,7 +20,17 @@
     </button>
     }
   </mat-form-field>
+  <div>
+    <button mat-raised-button routerLink="/mylist" routerLinkActive="active">
+      My List
+    </button>
+  </div>
 </mat-toolbar>
+@if(pending) {
+<div class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+} @else {
 <div class="container-fluid">
   <div class="mb-5">
     @if(!findMovies){
@@ -39,11 +49,11 @@
               <mat-icon>add</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="wantItem(item)">
                 <mat-icon>watch_later</mat-icon>
                 <span>Want</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="watchedItem(item)">
                 <mat-icon>done</mat-icon>
                 <span>Watched</span>
               </button>
@@ -97,11 +107,11 @@
               <mat-icon>add</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="wantItem(item)">
                 <mat-icon>watch_later</mat-icon>
                 <span>Want</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="watchedItem(item)">
                 <mat-icon>done</mat-icon>
                 <span>Watched</span>
               </button>
@@ -145,7 +155,25 @@
     <div class="row justify-content-center mw-100">
       @for (item of showResult.results; track $index) {
       <mat-card class="movie-card m-2">
-        <div>
+        <div class="card-info">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Check movie"
+            class="movie-save"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="wantItem(item)">
+              <mat-icon>watch_later</mat-icon>
+              <span>Want</span>
+            </button>
+            <button mat-menu-item (click)="watchedItem(item)">
+              <mat-icon>done</mat-icon>
+              <span>Watched</span>
+            </button>
+          </mat-menu>
           <div class="movie-poster">
             <img
               class="card-img-top movie-poster-size"
@@ -166,6 +194,15 @@
               item.overview
             }}</mat-card-subtitle>
           </mat-card-content>
+
+          <mat-card-actions
+            class="card-actions"
+            align="end"
+            routerLink="/details/tv/{{ item.id }}"
+            routerLinkActive="active"
+          >
+            <button mat-flat-button>Details</button>
+          </mat-card-actions>
         </div>
       </mat-card>
       }
@@ -173,3 +210,5 @@
     }
   </div>
 </div>
+
+}

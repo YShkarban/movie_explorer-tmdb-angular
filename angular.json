@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TMDB-MovieList-Angular": {
+    "movie-explorer-tmdb-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TMDB-MovieList-Angular:build:production"
+              "buildTarget": "movie-explorer-tmdb-angular:build:production"
             },
             "development": {
-              "buildTarget": "TMDB-MovieList-Angular:build:development"
+              "buildTarget": "movie-explorer-tmdb-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "TMDB-MovieList-Angular:build"
+            "buildTarget": "movie-explorer-tmdb-angular:build"
           }
         },
         "test": {

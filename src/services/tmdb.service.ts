@@ -15,6 +15,7 @@ import {
   TvSearch,
   TvSimilar,
 } from '../interfaces/tvseries';
+import { Token } from '../interfaces/authenticate';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,12 @@ export class TmdbService {
           .join('&')
       : '';
     return `${this._base_url}${endpoint}?api_key=${this._api_key}&${queryParams}`;
+  }
+
+  requestToken(): Observable<Token> {
+    return this.httpClient.get<Token>(
+      `${this._base_url}/authentication/token/new`
+    );
   }
 
   discoverMovie(params: any): Observable<IDiscoverPageContent<IMovie>> {
