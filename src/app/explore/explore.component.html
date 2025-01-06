@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" style="justify-content: center">
+<mat-toolbar style="justify-content: center; background-color: rgb(219, 229, 247); ">
   <mat-form-field style="max-width: 150px; padding-top: 20px">
     <mat-select [(value)]="selectedCategorie">
       @for (option of categories; track option) {
@@ -6,7 +6,7 @@
       }
     </mat-select>
   </mat-form-field>
-  <mat-form-field style="width: 500px; padding-top: 20px; margin-left: 5px">
+  <mat-form-field style="width: 500px; padding-top: 20px; margin-left: 5px;border-radius: 20px;">
     <mat-label>Search</mat-label>
     <input matInput type="text" [formControl]="searchName" />
     @if (searchName.value) {
@@ -154,7 +154,7 @@
     } @else if(findMovies) {
     <div class="row justify-content-center mw-100">
       @for (item of showResult.results; track $index) {
-      <mat-card class="movie-card m-2">
+      <mat-card class="find-card m-2">
         <div class="card-info">
           <button
             mat-icon-button

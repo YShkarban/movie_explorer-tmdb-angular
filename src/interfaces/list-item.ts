@@ -6,4 +6,6 @@ export interface MyListItem {
   title: string;
   poster_path: string;
   favorites: boolean;
+  movie_id: number;
+  rating?: number;
 }

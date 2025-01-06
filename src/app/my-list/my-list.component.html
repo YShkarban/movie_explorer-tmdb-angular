@@ -1,6 +1,11 @@
 <mat-toolbar color="primary" style="justify-content: center">
-  <button mat-raised-button routerLink="/explore" routerLinkActive="active">
-    Back
+  <button
+    mat-icon-button
+    routerLink="/explore"
+    routerLinkActive="active"
+    matTooltip="Back to explore"
+  >
+    <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
   <mat-form-field style="max-width: 150px; padding-top: 20px">
     <mat-select [(value)]="selectedCategorie">
@@ -46,6 +51,7 @@
             aria-label="Check movie"
             class="movie-favorite"
             (click)="addFavorites(item)"
+            matTooltip="Add to favorites"
           >
             @if(item.favorites) {
             <mat-icon>star</mat-icon>
@@ -54,13 +60,13 @@
             }
           </button>
           <mat-menu #menu="matMenu">
-            @if(!swapedState) {
+            @if(swapedState) {
             <button mat-menu-item (click)="wantItem(item)">
               <mat-icon>watch_later</mat-icon>
               <span>Want</span>
             </button>
 
-            } @if(swapedState) {
+            } @else {
             <button mat-menu-item (click)="watchedItem(item)">
               <mat-icon>done</mat-icon>
               <span>Watched</span>
@@ -96,7 +102,7 @@
           <mat-card-actions
             class="card-actions"
             align="end"
-            routerLink="/details/tv/{{ item.id }}"
+            routerLink="/details/movie/{{ item.movie_id }}"
             routerLinkActive="active"
           >
             <button mat-flat-button>Details</button>
@@ -128,15 +134,16 @@
             }
           </button>
           <mat-menu #menu="matMenu">
+            @if(!swapedState) {
             <button mat-menu-item (click)="wantItem(item)">
               <mat-icon>watch_later</mat-icon>
-              <span>Want</span>
-            </button>
+              <span>Want</span></button
+            >} @else {
             <button mat-menu-item (click)="watchedItem(item)">
               <mat-icon>done</mat-icon>
               <span>Watched</span>
             </button>
-
+            }
             <button mat-menu-item (click)="removeItem(item)">
               <mat-icon>delete</mat-icon>
               <span>Remove</span>
@@ -166,7 +173,7 @@
           <mat-card-actions
             class="card-actions"
             align="end"
-            routerLink="/details/tv/{{ item.id }}"
+            routerLink="/details/movie/{{ item.movie_id }}"
             routerLinkActive="active"
           >
             <button mat-flat-button>Details</button>

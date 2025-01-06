@@ -27,6 +27,15 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MovieRatingComponent } from '../movie-rating/movie-rating.component';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-explore',
@@ -47,6 +56,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatToolbarModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    MovieRatingComponent,
   ],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
@@ -54,6 +64,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class ExploreComponent implements OnInit {
   private snackbar = inject(MatSnackBar);
   private db = inject(AngularFirestore);
+  readonly dialog = inject(MatDialog);
 
   categories: Categories[] = [
     { value: 1, name: 'Movie' },
@@ -135,6 +146,7 @@ export class ExploreComponent implements OnInit {
       overview: event.overview,
       poster_path: event.poster_path,
       favorites: false,
+      movie_id: event.id,
     };
 
     this.db.collection('want').add(inputTask);
@@ -147,9 +159,18 @@ export class ExploreComponent implements OnInit {
       overview: event.overview,
       poster_path: event.poster_path,
       favorites: false,
+      movie_id: event.id,
     };
 
-    this.db.collection('watched').add(inputTask);
-    this.snackbar.open('Movie added to Watched list', 'OK');
+    const dialogRef = this.dialog.open(MovieRatingComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
+        inputTask.rating = result;
+
+        this.db.collection('watched').add(inputTask);
+        this.snackbar.open('Movie added to Watched list', 'OK');
+      }
+    });
   }
 }

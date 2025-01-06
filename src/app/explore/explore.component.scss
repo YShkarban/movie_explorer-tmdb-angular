@@ -1,5 +1,9 @@
 .movie-card {
-  width: 350px;
+  width: 300px;
+}
+
+.find-card {
+  width: 260px;
 }
 
 .movie-poster-size {
@@ -42,16 +46,18 @@
 /* Track */
 ::-webkit-scrollbar-track {
   background: #eee;
+  border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #55aa55;
+  background: rgb(30, 68, 172);
+  border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #88dd88;
+  background: rgb(93, 127, 221);
 }
 
 .truncate-text {
@@ -82,7 +88,6 @@
   flex-direction: column;
   height: 100%;
 }
-
 
 .spinner-container {
   position: fixed;

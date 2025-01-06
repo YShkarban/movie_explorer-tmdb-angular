@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { Categories } from '../../interfaces/categories';
 import { MatInputModule } from '@angular/material/input';
+import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
 
 const getObservable = (collection: AngularFirestoreCollection<MyListItem>) => {
   const subject = new BehaviorSubject<MyListItem[]>([]);
@@ -46,6 +47,7 @@ const getObservable = (collection: AngularFirestoreCollection<MyListItem>) => {
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatTooltipModule,
   ],
   templateUrl: './my-list.component.html',
   styleUrl: './my-list.component.scss',
@@ -87,6 +89,7 @@ export class MyListComponent implements OnInit {
       overview: event.overview,
       poster_path: event.poster_path,
       favorites: event.favorites,
+      movie_id: event.movie_id,
     };
 
     this.db.collection('want').add(inputTask);
@@ -99,6 +102,7 @@ export class MyListComponent implements OnInit {
       overview: event.overview,
       poster_path: event.poster_path,
       favorites: event.favorites,
+      movie_id: event.movie_id,
     };
     this.db.collection('watched').add(inputTask);
     this.snackbar.open('Movie added to Watched list', 'OK');

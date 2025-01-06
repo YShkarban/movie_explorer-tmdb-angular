@@ -1,7 +1,46 @@
 <div class="container-fluid">
-  <button mat-raised-button routerLink="" routerLinkActive="active">
-    Back to explore
-  </button>
+  <div class="row" style="justify-content: center">
+    <button
+      mat-icon-button
+      routerLink=""
+      routerLinkActive="active"
+      matTooltip="Back to explore"
+      style="margin-top: 20px"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <mat-form-field style="max-width: 150px; padding-top: 20px">
+      <mat-select [(value)]="selectedCategorie">
+        @for (option of categories; track option) {
+        <mat-option [value]="option.value">{{ option.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="width: 500px; padding-top: 20px; margin-left: 5px">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [formControl]="searchName" />
+      @if (searchName.value) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="searchName.reset()"
+        style="color: aqua"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+    <button
+      mat-icon-button
+      routerLink="/mylist"
+      routerLinkActive="active"
+      matTooltip="My list"
+      style="margin-top: 20px"
+    >
+      <mat-icon>list</mat-icon>
+    </button>
+  </div>
 
   <div class="row mt-4">
     <div class="col-lg-3 col-md-4 col-sm-12">
@@ -34,14 +73,14 @@
       <p>{{ details.vote_average }}</p>
     </div>
   </div>
-  <div class="row m-2">
-    <h2>Similar {{text}}s</h2>
+  <div class="row m-2 mt-5">
+    <h2>Similar {{ text }}s</h2>
     <div class="scrollable-row">
       @for (item of similar.results; track $index) {
       <mat-card class="movie-card m-2">
         <div
           style="
-            width: 250px;
+            width: 150px;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -49,7 +88,7 @@
         >
           <div class="movie-poster">
             <img
-              class="card-img-top movie-poster-size"
+              class="card-img-top similar-movies-size"
               mat-card-image
               src="https://image.tmdb.org/t/p/w220_and_h330_face/{{
                 item.poster_path
@@ -67,7 +106,7 @@
           <mat-card-actions
             class="card-actions"
             align="end"
-            routerLink="/details/movie/{{ item.id }}"
+            routerLink="/details/{{ text }}/{{ item.movie_id }}"
             routerLinkActive="active"
           >
             <button mat-flat-button>Details</button>

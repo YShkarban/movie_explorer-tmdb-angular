@@ -1,0 +1,14 @@
+.signin-card {
+  //background-color: rgba(69, 165, 255, .2) ;
+  background-color: transparent;
+  max-width: 300px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.full-height {
+  height: 100vh; /* Makes the container take the full height of the viewport */
+  display: flex; /* Ensure flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}

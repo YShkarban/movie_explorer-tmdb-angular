@@ -53,8 +53,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
-  background-image: url("./assets/img/shades.jpg");
+ background-color: rgba(40, 150, 253, 0.2) ;
+  //background-image: url("./assets/img/shades.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -70,4 +70,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 10px !important;
 }

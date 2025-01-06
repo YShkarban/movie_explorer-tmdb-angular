@@ -16,13 +16,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideAnimationsAsync(),
     provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     importProvidersFrom(
-      provideFirebaseApp(() =>
-        initializeApp(environment.firebase)
-      ),
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule
     ),
-    importProvidersFrom(provideFirestore(() => getFirestore())),
+    provideFirestore(() => getFirestore()),
   ],
 };

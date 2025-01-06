@@ -39,20 +39,22 @@
   ::-webkit-scrollbar {
     height: 8px;
   }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #eee;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #55aa55;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #88dd88;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(30, 68, 172);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(93, 127, 221);
+}
   
   .truncate-text {
     overflow: hidden;

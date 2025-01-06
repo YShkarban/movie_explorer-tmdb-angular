@@ -9,7 +9,7 @@ import {
 import { TmdbService } from '../../services/tmdb.service';
 import { lastValueFrom } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Categories } from '../../interfaces/categories';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-details',
@@ -35,6 +36,7 @@ import { Categories } from '../../interfaces/categories';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
+    MatTooltipModule,
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
@@ -43,6 +45,14 @@ export class DetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private tmdbService = inject(TmdbService);
   text: string = '';
+
+  categories: Categories[] = [
+    { value: 1, name: 'Movie' },
+    { value: 2, name: 'TV' },
+  ];
+  selectedCategorie = this.categories[0].value;
+
+  public searchName = new FormControl('');
 
   details: any;
   similar: any;
@@ -63,11 +73,9 @@ export class DetailsComponent implements OnInit {
     if (this.text == 'movie') {
       this.details = await lastValueFrom(this.tmdbService.movieDetails(id));
       this.similar = await lastValueFrom(this.tmdbService.movieSimilar(id));
-      
     } else if (this.text == 'tv') {
       this.details = await lastValueFrom(this.tmdbService.tvDetails(id));
       this.similar = await lastValueFrom(this.tmdbService.tvSimilar(id));
-
     }
   }
 }
